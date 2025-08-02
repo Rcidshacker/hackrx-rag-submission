@@ -1,4 +1,4 @@
-# src/llm_handler.py (Final Version with NVIDIA Llama 3.1)
+# src/llm_handler.py (Final, Production-Ready Version)
 
 import os
 import logging
@@ -6,19 +6,24 @@ import requests
 from dotenv import load_dotenv
 from typing import List, Dict
 
+# load_dotenv() will search for a .env file and load it.
+# If it doesn't find one (like on the Render server), it will do nothing.
+# The script will then rely on the environment variables set in the Render dashboard.
 load_dotenv()
 
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 SITE_URL = os.getenv("OPENROUTER_SITE_URL")
 
+# This check is still important. It will now fail if the variable is missing
+# either from the .env file (locally) or the Render dashboard (in production).
 if not API_KEY:
-    raise ValueError("OPENROUTER_API_KEY not found in .env file")
+    raise ValueError("CRITICAL: OPENROUTER_API_KEY is not set in the environment.")
 if not SITE_URL:
-    raise ValueError("OPENROUTER_SITE_URL not found in .env file")
+    raise ValueError("CRITICAL: OPENROUTER_SITE_URL is not set in the environment.")
 
 def get_answer_from_llm(query: str, retrieved_clauses: List[Dict[str, str]]) -> str:
     """
-    Generates a concise answer using the NVIDIA Llama 3.1 model via OpenRouter.
+    Generates a concise answer using the specified model via OpenRouter.
     """
     if not retrieved_clauses:
         return "Based on the document, there is not enough information to answer this question."
@@ -27,8 +32,6 @@ def get_answer_from_llm(query: str, retrieved_clauses: List[Dict[str, str]]) -> 
         [f"Clause ID: {c.get('clause_id', 'N/A')}\nText: {c.get('text', '')}" for c in retrieved_clauses]
     )
 
-    # This prompt is specifically designed for the NVIDIA Nemotron model.
-    # It includes the required "detailed thinking on" instruction.
     system_prompt = (
         "You are an expert insurance policy analyst. Your task is to provide a direct and factual answer to the user's question based "
         "ONLY on the provided context clauses from an insurance policy. Do not use any external knowledge. "
@@ -47,7 +50,7 @@ def get_answer_from_llm(query: str, retrieved_clauses: List[Dict[str, str]]) -> 
     """
 
     try:
-        logging.info("Sending request to OpenRouter API with NVIDIA Llama 3.1 model...")
+        logging.info("Sending request to OpenRouter API...")
         response = requests.post(
             url="https://openrouter.ai/api/v1/chat/completions",
             headers={
@@ -56,7 +59,7 @@ def get_answer_from_llm(query: str, retrieved_clauses: List[Dict[str, str]]) -> 
                 "X-Title": "HackRx RAG System"
             },
             json={
-                "model": "openrouter/horizon-alpha", # <-- THE NEW, CORRECT MODEL NAME
+                "model": "openrouter/horizon-alpha",
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
