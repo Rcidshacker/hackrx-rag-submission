@@ -88,62 +88,81 @@ py -3.11 -m venv venv
 
 # Install dependencies
 pip install -r requirements.txt
+```
 
-3️⃣ Configuration
+### 3️⃣ Configuration
 
-Create a .env file in the root directory:
+Create a `.env` file in the root directory:
+
+```env
 # .env
 OPENROUTER_API_KEY="sk-or-v1-YourSecretApiKeyHere"
 OPENROUTER_SITE_URL="http://localhost:8000"
+```
 
-4️⃣ Running End-to-End Local Test
-Terminal 1: Start the FastAPI Server
+### 4️⃣ Running End-to-End Local Test
+
+#### Terminal 1: Start the FastAPI Server
+```bash
 uvicorn api:app --reload
+```
 
-Terminal 2: Serve PDFs via Local HTTP Server
+#### Terminal 2: Serve PDFs via Local HTTP Server
+```bash
 cd input_docs
 python -m http.server 8080
+```
 
-Terminal 3: Run the Test Script
+(Ensure a sample PDF like `Arogya_Sanjeevani_Policy.pdf` is in the `input_docs` folder.)
+
+#### Terminal 3: Run the Test Script
+```bash
 python test_submission.py
+```
 
 ✅ This will simulate the full pipeline — from document download to LLM answer generation.
 
-☁️ Deploying to Render
-Step-by-Step Guide:
+---
 
-    Push Code to GitHub:
-    Ensure the latest version is in a public GitHub repo.
+## ☁️ Deploying to Render
 
-    Create a New Web Service on Render:
+### Step-by-Step Guide:
 
-        Connect GitHub account
+1. **Push Code to GitHub:**  
+   Ensure the latest version is in a public GitHub repo.
 
-        Select the repo
+2. **Create a New Web Service on Render:**
+   - Connect GitHub account
+   - Select the repo
 
-    Set Configuration:
+3. **Set Configuration:**
+   - Environment: `Python 3`
+   - **Build Command:**  
+     ```bash
+     pip install -r requirements.txt
+     ```
+   - **Start Command:**  
+     ```bash
+     gunicorn -w 4 -k uvicorn.workers.UvicornWorker api:app
+     ```
 
-        Environment: Python 3
+4. **Add Environment Variables:**
+   - `PYTHON_VERSION`: `3.11`
+   - `OPENROUTER_API_KEY`: `sk-or-v1-YourSecretApiKeyHere`
+   - `OPENROUTER_SITE_URL`: `https://your-app-name.onrender.com`
 
-        Build Command:
-pip install -r requirements.txt
+5. **Deploy.**  
+   After deployment, your webhook endpoint becomes:
 
-Start Command:
-gunicorn -w 4 -k uvicorn.workers.UvicornWorker api:app
-
-Add Environment Variables:
-
-    PYTHON_VERSION: 3.11
-
-    OPENROUTER_API_KEY: sk-or-v1-YourSecretApiKeyHere
-
-    OPENROUTER_SITE_URL: https://your-app-name.onrender.com
-
-Deploy.
-After deployment, your webhook endpoint becomes:
+```
 https://your-app-name.onrender.com/api/v1/hackrx/run
+```
 
-📂 Folder Structure
+---
+
+## 📂 Folder Structure
+
+```
 hackrx-rag-submission/
 ├── api.py                   # FastAPI main server
 ├── test_submission.py       # Local test script
@@ -152,23 +171,17 @@ hackrx-rag-submission/
 ├── input_docs/              # Sample PDF directory
 ├── requirements.txt
 ├── .env                     # Local API keys (not committed)
-
-📜 License
-
-This project is open-sourced for HackRx 6.0 evaluation and educational use.
-
-🙌 Acknowledgements
-
-    HackRx 6.0 Team for the problem statement
-
-    Hugging Face & OpenRouter for incredible tools
+```
 
 ---
 
-Let me know if you'd like to:
+## 📜 License
 
-- Add contributors section
-- Add usage examples via `curl` or Postman
-- Include diagrams (I can generate a Mermaid flowchart or architecture PNG)
+This project is open-sourced for HackRx 6.0 evaluation and educational use.
 
-Ready to go.
+---
+
+## 🙌 Acknowledgements
+
+- HackRx 6.0 Team for the problem statement
+- Hugging Face & OpenRouter for incredible tools
