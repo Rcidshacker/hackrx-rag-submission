@@ -1,0 +1,16 @@
+# requirements.txt
+
+# Core Processing
+PyMuPDF
+python-docx
+PyYAML
+sentence-transformers
+faiss-cpu
+nltk
+
+# API Server & HTTP
+fastapi
+uvicorn[standard]
+requests
+python-dotenv
+gunicorn

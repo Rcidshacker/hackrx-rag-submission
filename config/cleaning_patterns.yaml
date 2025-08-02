@@ -1,0 +1,99 @@
+# config/cleaning_patterns.yaml (Final Version)
+
+placeholders:
+  - '^\s*<<.*?>>\s*$'
+
+page_markers:
+  - '^\s*Page\s*\d+\s*(of\s*\d+)?\s*$'
+  - '^\s*\d+\s*/\s*\d+\s*$'
+  - '^\s*\[\d+\]\s*$'
+  - '^\s*\d+\s*$'
+  - '^\s*[IVXLCDM]+\s*$'
+  - '^\s*Part\s+[A-G]\s*$'
+  - '^\s*ANNEXURE\s*[-\s]*\d*\s*$'
+  - '^\s*APPENDIX\s*[-\s]*\d*\s*$'
+  - '^\s*---+\s*$'
+
+company_headers_footers:
+  # HDFC Life
+  - '^\s*HDFC\s+Life\s*$'
+  - '^\s*Sar\s+utha\s+ke\s+jiyo!\s*$'
+  - '^\s*SAMPLE\s+COPY\s*$'
+  # SBI General
+  - '^\s*SBI\s+General\s+Insurance\s+Company\s*$'
+  - '^\s*Limited\s*$'
+  - '^\s*SURAKSHA\s+AUR\s+BHAROSA\s+DONO\s*$'
+  - '^\s*HEALTH\s+INSURANCE\s+POLICY\s*-\s*RETAIL\s*$'
+  # ICICI Lombard
+  - '^\s*ICICI\s+Lombard\s*$'
+  - '^\s*Nibhaye\s+Vaade\s*$'
+  - '^\s*BURGLARY\s+INSURANCE\s+POLICY\s*$'
+  - '^\s*ICICI\s+BHARAT\s+SOOKSHMA\s+UDYAM\s+SURAKSHA\s*$'
+  - '^\s*Two\s+Wheeler\s+Vehicles\s+Package\s+Policy\s*$'
+  # Care Health
+  - '^\s*car(e|ē)\s+HEALTH\s+INSURANCE\s*$'
+  - '^\s*10\s+YEARS\s+OF\s+CARE\s*$'
+  - '^\s*REACH\s+US\s+@\s*$'
+  # Maruti Suzuki
+  - '^\s*MARUTI\s+SUZUKI\s+INSURANCE\s+BROKING\s*$'
+  - '^\s*This\s+is\s+not\s+a\s+part\s+of\s+the\s+policy\s+document\s*.*$'
+  - '^\s*Dedicated\s+Customer\s+Support\s*$'
+  # NEW: National Insurance
+  - '^\s*National\s+Insurance\s+Company\s+Limited\s*$'
+  - '^\s*National\s+Insurance\s+Co\.\s+Ltd\.\s*$'
+  - '^\s*Trusted\s+Since\s+1906\s*$'
+  - '^\s*Arogya\s+Sanjeevani\s+Policy\s*-\s*National\s*$'
+
+keyword_based_footers:
+  - '.*CIN:\s*U66000MH2009PLC190546.*' # SBI Footer
+  - '.*UIN:\s*SBIHLIP11002V021011.*' # SBI Footer
+  - '.*CIN:\s*L67200MH2000PLC129408.*' # ICICI Footer
+  - '.*CIN:\s*U66000DL2007PLC161503.*' # Care Health Footer
+  - '.*IRDAI\s+Regn\.\s+No\.\s+148.*' # Care Health Footer
+  # NEW: National Insurance Footer
+  - '.*UIN:\s*NICHLIP25041V022425.*'
+
+regulatory_ids:
+  - '^\s*CIN:\s*[A-Z0-9]+\s*$'
+  - '^\s*IRDA(I)?\s+Reg(n)?\.\s+No\.\s*:\s*\d+\s*$'
+  - '^\s*UIN\s*:\s*[A-Z0-9RPV-]+$'
+  - '^\s*GSTIN\s+No\s*.\s*:\s*[A-Z0-9]+\s*$'
+  - '^\s*Unique\s+Identification\s+Number\s*:\s*<<\s*\w+\s*>>\s*$'
+
+contact_info:
+  - '^\s*Toll\s+free\s+no\s*:\s*[\d\s]+\s*$'
+  - '^\s*Helpline\s+number\s*:\s*[\d\s]+\s*\(Local\s+charges\s+apply\)\s*$'
+  - '^\s*Tel\.\s*:\s*(\+\d{1,3}[\s-]?)?\(?(\d{2,5})\)?[-.\s]?\d{3,5}[-.\s]?\d{3,5}\s*$'
+  - '^\s*Fax\s*:\s*(\+\d{1,3}[\s-]?)?\(?(\d{2,5})\)?[-.\s]?\d{3,5}[-.\s]?\d{3,5}\s*$'
+  - '^\s*E-mail\s*:\s*\S+@\S+\.\S+\s*$'
+  - '^\s*Website\s*:\s*www\.\S+\.com\s*$'
+  - '^\s*Visit\s+www\.\S+\.com\s*$'
+  - '^\s*For\s+Policy\s+Terms\s+and\s+Conditions\s+Log\s+on\s+to\s*.*$'
+
+document_metadata:
+  - '^\s*Policy\s+number\s*:\s*<<\s*>>\s*$'
+  - '^\s*Policy\s+No\s*.\s*:\s*[\w\d/]+\s*$'
+  - '^\s*Ref\.\s+No\s*:\s*\w+\s*$'
+  - '^\s*Date\s*:\s*\w+\s+\d{1,2},\s+\d{4}\s*$'
+  - '^\s*Effective\s+Date\s*:\s*<\s*RCD\s*>\s*$'
+  - '^\s*Signature\s+Not\s+Verified\s*$'
+  - '^\s*Digitally\s+signed\s+by\s+.*$'
+  - '^\s*Date\s*:\s*\d{8,14}.*$'
+  - '^\s*Reason\s*:\s*.*$'
+  - '^\s*Location\s*:\s*.*$'
+  - '^\s*Authorised\s+Signatory\s*$'
+
+address_lines:
+  - '^\s*Registered\s+Office(\s+Address)?\s*:\s*.*$'
+  - '^\s*Corporate\s+&\s+Registered\s+Office\s*:\s*.*$'
+  - '^\s*Mailing\s+Address\s*:\s*.*$'
+  - '^\s*Address\s+for\s+Correspondence\s*:\s*.*$'
+  - '^\s*ICICI\s+Lombard\s+House,\s+414,\s+Veer\s+Savarkar\s+Marg\s*.*$'
+  - '^\s*.*Near\s+Siddhi\s+Vinayak\s+Temple,\s+Prabhadevi,\s+Mumbai\s*.*$'
+
+general_noise:
+  - '^\s*STATUTORY\s+NOTICE\s*:\s*INSURANCE\s+IS\s+THE\s+SUBJECT\s+MATTER\s+OF\s+THE\s+SOLICITATION\s*$'
+  - '^\s*\[\s*Disclaimer\s*:\s*This\s+is\s+not\s+a\s+comprehensive\s+list\s*.*\]\s*$'
+  - '^\s*Note\s*:\s*Kindly\s+note\s+that\s+name\s+of\s+the\s+Company\s+has\s+changed\s*.*$'
+  - '^\s*In\s+case\s+you\s+notice\s+any\s+mistake,\s+you\s+may\s+return\s+the\s+Policy\s*.*$'
+  - '^\s*Please\s+scan\s+QR\s+Code\s+or\s+click\s+https:\/\/.*$'

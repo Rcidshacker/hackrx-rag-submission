@@ -1,0 +1,22 @@
+# .gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-selfcheck.json
+
+# VS Code
+.vscode/
+
+# Output & Logs
+/output_cleaned/
+/logs/
+
+# OS-specific
+.DS_Store
+Thumbs.db
