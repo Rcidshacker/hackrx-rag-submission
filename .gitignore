@@ -20,3 +20,6 @@ pip-selfcheck.json
 # OS-specific
 .DS_Store
 Thumbs.db
+
+# Secrets
+.env
